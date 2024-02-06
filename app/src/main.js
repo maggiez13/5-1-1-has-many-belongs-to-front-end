@@ -1,22 +1,27 @@
 import './style.css'
-import { renderMain, renderBooks, renderAuthor, updateDropDown, findAuthorHelper} from './utils/render-functions.js';
+import { renderMain, renderBooks, renderAuthor, updateDropDown } from './utils/render-functions.js';
 import { Author } from './models/has-many.js';
 
 const handleAuthorSubmit = (e) => {
   e.preventDefault();
-  const newAuthor = Object.fromEntries(new FormData(e.target));
-  const author = new Author(newAuthor.name);
+  const { name } = Object.fromEntries(new FormData(e.target));
+  const author = new Author(name);
+
   renderAuthor(author);
   updateDropDown();
+
   e.target.reset();
 }
 
 const handleBookSubmit = (e) => {
   e.preventDefault();
-  const authorAndBook = Object.fromEntries(new FormData(e.target));
-  const author = findAuthorHelper(authorAndBook.name);
-  author[0].addBook(authorAndBook.title, authorAndBook.name);
-  document.querySelector(`#authorUL${author[0].id}`).innerHTML = renderBooks(authorAndBook.name);
+  const { id, title } = Object.fromEntries(new FormData(e.target));
+
+  const author = Author.findBy(Number(id));
+  author.addBook(title);
+
+  renderBooks(document.querySelector(`#author-ul-${id}`), author);
+
   e.target.reset();
 }
 

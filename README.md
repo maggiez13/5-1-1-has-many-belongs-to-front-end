@@ -2,7 +2,10 @@
 
 This repo contains a Vite app that has been built out for you to implement a **has many / belongs to** relationship between classes. 
 
+![](./images/app.png)
+
 The app allows users to maintain a list of **Authors** and **Books** by those authors.
+
 
 Before you begin, read through the code and understand the structure. 
 * The `utils` folder contains a `getId.js` file with an id-generating function and a `render-functions.js` file with functions for rendering the front end components.
